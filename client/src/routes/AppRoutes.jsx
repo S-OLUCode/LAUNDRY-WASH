@@ -3,7 +3,7 @@ import { lazy } from "react";
 import { PrivateRoute, PublicRoute } from "./ProtectedRoute";
 import { useAuth } from "@/hooks/useAuth";
 import { Suspense } from "react";
-import LazySpinner from "@/components/Lazyspinner";
+import LazySpinner from "@/components/LazySpinner";
 import Payments from "@/pages/payments/Payments";
 import Users from "@/pages/users/Users";
 import AdminOrders from "@/pages/dashboard/Adminorders/AdminOrders";
