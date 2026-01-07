@@ -1,4 +1,3 @@
-import { Funnel } from "lucide-react";
 import { dashboardStats } from "@/api/admin";
 import { DashboardCardSkeleton } from "@/components/Skeleton";
 import { useAuth } from "@/hooks/useAuth";
@@ -10,7 +9,7 @@ import Paginate from "@/components/Paginate";
 import usePaginate from "@/hooks/usePaginate";
 import Filter from "./Filter";
 
-export default function Dashboard() {
+export default function DashBoard() {
   const { accessToken } = useAuth();
   const [searchParams] = useSearchParams();
   const { isPending, isError, error, data } = useQuery({
@@ -31,8 +30,6 @@ export default function Dashboard() {
     hasMore: pagination?.hasMore || false,
     currentPage: pagination?.page || 1,
   });
-
-  
 
   return (
     <div className="container p-4 mx-auto text-white mt-4">

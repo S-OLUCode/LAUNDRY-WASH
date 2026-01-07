@@ -31,7 +31,8 @@ const PaymentOptions = lazy(() =>
 const Orders = lazy(() => import("../pages/orders/Orders"));
 const PersonalInfo = lazy(() => import("../pages/profile/PersonalInfo"));
 const Payments = lazy(() => import("../pages/payments/Payments"));
-const Dashboard = lazy(() => import("../pages/dashboard/Dashboard"));
+const DashBoard = lazy(() => import("../pages/dashboard/DashBoard"));
+
 
 // const Users = lazy(() => import ("../pages/dashboard/users/Users"));
 // const AdminOrders = lazy(() => import ("../pages/dashboard/Adminorders/AdminOrders"));
@@ -220,7 +221,7 @@ export default function AppRoutes() {
           index: true,
           element: (
             <PrivateRoute accessToken={accessToken}>
-              <Dashboard />
+              <DashBoard />
             </PrivateRoute>
           ),
         },
