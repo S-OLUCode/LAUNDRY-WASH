@@ -3,11 +3,12 @@ import { lazy } from "react";
 import { PrivateRoute, PublicRoute } from "./ProtectedRoute";
 import { useAuth } from "@/hooks/useAuth";
 import { Suspense } from "react";
-import LazySpinner from "@/components/LazySpinner";
+
 import Payments from "@/pages/payments/Payments";
 import Users from "@/pages/users/Users";
 import AdminOrders from "@/pages/dashboard/Adminorders/AdminOrders";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import Lazyspinner from "@/components/Lazyspinner";
 
 const ForgetLayout = lazy(() => import("../layout/ForgetLayout"));
 const AuthLayout = lazy(() => import("../layout/AuthLayout"));
@@ -35,7 +36,7 @@ const Payment = lazy(() => import("../pages/payments/Payments"));
 const Dashboard = lazy(() => import("../pages/dashboard/DashBoard"));
 // const Users = lazy(() => import ("../pages/dashboard/users/Users"));
 // const AdminOrders = lazy(() => import ("../pages/dashboard/Adminorders/AdminOrders"));
-const Revenue = lazy(() => import ("../pages/dashboard/revenue/Revenue"));
+const Revenue = lazy(() => import("../pages/dashboard/revenue/Revenue"));
 
 export default function AppRoutes() {
   const { accessToken } = useAuth();
@@ -43,7 +44,7 @@ export default function AppRoutes() {
     {
       errorElement: <ErrorBoundary />,
       element: (
-        <Suspense fallback={<LazySpinner />}>
+        <Suspense fallback={<Lazyspinner />}>
           <PublicRoute accessToken={accessToken}>
             <AuthLayout />
           </PublicRoute>
@@ -63,7 +64,7 @@ export default function AppRoutes() {
     {
       errorElement: <ErrorBoundary />,
       element: (
-        <Suspense fallback={<LazySpinner />}>
+        <Suspense fallback={<Lazyspinner />}>
           <PublicRoute accessToken={accessToken}>
             <ForgetLayout />
           </PublicRoute>
@@ -85,7 +86,7 @@ export default function AppRoutes() {
       path: "/",
       errorElement: <ErrorBoundary />,
       element: (
-        <Suspense fallback={<LazySpinner />}>
+        <Suspense fallback={<Lazyspinner />}>
           <RootLayout />
         </Suspense>
       ),
@@ -98,7 +99,7 @@ export default function AppRoutes() {
           path: "profile",
           errorElement: <ErrorBoundary />,
           element: (
-            <Suspense fallback={<LazySpinner />}>
+            <Suspense fallback={<Lazyspinner />}>
               <PrivateRoute accessToken={accessToken}>
                 <ProfileLayout />
               </PrivateRoute>
@@ -139,7 +140,7 @@ export default function AppRoutes() {
       path: "verify-email/:userId/:verifyTokenLink",
       errorElement: <ErrorBoundary />,
       element: (
-        <Suspense fallback={<LazySpinner />}>
+        <Suspense fallback={<Lazyspinner />}>
           <PrivateRoute accessToken={accessToken}>
             <VerifyEmail />
           </PrivateRoute>
@@ -150,7 +151,7 @@ export default function AppRoutes() {
       path: "verify-email",
       errorElement: <ErrorBoundary />,
       element: (
-        <Suspense fallback={<LazySpinner />}>
+        <Suspense fallback={<Lazyspinner />}>
           <PrivateRoute accessToken={accessToken}>
             <CheckVerification />
           </PrivateRoute>
@@ -161,7 +162,7 @@ export default function AppRoutes() {
     {
       errorElement: <ErrorBoundary />,
       element: (
-        <Suspense fallback={<LazySpinner />}>
+        <Suspense fallback={<Lazyspinner />}>
           <PrivateRoute accessToken={accessToken}>
             <BookingLayout />
           </PrivateRoute>
@@ -172,7 +173,7 @@ export default function AppRoutes() {
           path: "book-laundry",
           errorElement: <ErrorBoundary />,
           element: (
-            <Suspense fallback={<LazySpinner />}>
+            <Suspense fallback={<Lazyspinner />}>
               <PrivateRoute accessToken={accessToken}>
                 <BookLaundry />
               </PrivateRoute>
@@ -183,7 +184,7 @@ export default function AppRoutes() {
               path: "booking-summary",
               errorElement: <ErrorBoundary />,
               element: (
-                <Suspense fallback={<LazySpinner />}>
+                <Suspense fallback={<Lazyspinner />}>
                   <PrivateRoute accessToken={accessToken}>
                     <BookingSummary />
                   </PrivateRoute>
@@ -194,7 +195,7 @@ export default function AppRoutes() {
               path: "payment-options/:bookingId",
               errorElement: <ErrorBoundary />,
               element: (
-                <Suspense fallback={<LazySpinner />}>
+                <Suspense fallback={<Lazyspinner />}>
                   <PrivateRoute accessToken={accessToken}>
                     <PaymentOptions />
                   </PrivateRoute>
@@ -209,7 +210,7 @@ export default function AppRoutes() {
       path: "admin",
       errorElement: <ErrorBoundary />,
       element: (
-        <Suspense fallback={<LazySpinner />}>
+        <Suspense fallback={<Lazyspinner />}>
           <PrivateRoute accessToken={accessToken}>
             <AdminLayout />
           </PrivateRoute>

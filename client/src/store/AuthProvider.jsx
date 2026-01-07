@@ -1,11 +1,12 @@
 import { AuthProviderContext } from "@/hooks/useAuth";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { getAuthUser, refreshAccessToken } from "@/api/auth";
-import LazySpinner from "@/components/LazySpinner";
+
 import { useCallback, useEffect, useState } from "react";
 import { logoutUser } from "@/api/auth";
 import { toast } from "react-toastify";
 import { jwtDecode } from "jwt-decode";
+import Lazyspinner from "@/components/Lazyspinner";
 
 export default function AuthProvider({ children }) {
   const [accessToken, setAccessToken] = useState(null);
@@ -128,7 +129,7 @@ export default function AuthProvider({ children }) {
   const handleLogout = async () => mutation.mutate(accessToken);
 
   if (isAuthenticating) {
-    return <LazySpinner />;
+    return <Lazyspinner />;
   }
 
   const contextValue = {

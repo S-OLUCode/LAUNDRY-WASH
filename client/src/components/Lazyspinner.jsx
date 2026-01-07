@@ -1,4 +1,6 @@
-export default function LazySpinner() {
+import React from "react";
+
+export default function Lazyspinner() {
   return (
     <div className="flex items-center justify-center min-h-screen gap-1">
       <div className="loader"></div>
