@@ -5,7 +5,10 @@ import User from "../model/user.model.js";
 import responseHandler from "../utils/responseHandler.js";
 import { sendToken, signToken } from "../utils/token.js";
 import mailService from "./mail.controller.js";
-// import {uploadToCloudinary, deleteFromCloudinary } from "../utils/cloudinary.js";
+import {
+  uploadToCloudinary,
+  deleteFromCloudinary,
+} from "../utils/cloudinary.js";
 
 export const registerUser = async (req, res, next) => {
   //req.body handles form collection passed from client side
@@ -347,7 +350,7 @@ export const uploadAvatar = async (req, res, next) => {
     }
     //upload new avatar to cloudinary/replace with new image
     const { url, public_id } = await uploadToCloudinary(avatar, {
-      folder: "f-stack/avatars",
+      folder: "laundrywash/avatars",
       width: 200,
       height: 200,
       crop: "fit",
