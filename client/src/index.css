@@ -1,0 +1,57 @@
+@import url("https://fonts.cdnfonts.com/css/nunito-sans");
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark;
+}
+
+@theme {
+  --color-grayish-black: #262626;
+  --color-wash-purple: #6255ed;
+  --color-wash-black: #141414;
+  --color-wash-white: #fcfcfc;
+  --color-greenish-black: #454545;
+  --color-adminOrderBg: #897527;
+  --color-adminOrderBgTwo: #7c4191;
+  --color-adminOrderBgThree: #43868a;
+}
+
+:root {
+  font-family: "Nunito Sans", sans-serif;
+
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --laundryWashGrayishBlack: #262626;
+  --laundryWashPurple: #6255ed;
+  --laundryWashBlack: #141414;
+  --laundryWashWhite: #fcfcfc;
+  --laundryWashGreen: #454545;
+  --laundryAdminOrderBg: #897527;
+  --laundryAdminOrderBgTwo: #7c4191;
+  --laundryAdminOrderBgThree: #43868a;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--laundryWashBlack);
+}
+
+.auth-background {
+  background-image: url("/LaundryMachine.svg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .auth-layout {
+    background-image: none;
+  }
+}
