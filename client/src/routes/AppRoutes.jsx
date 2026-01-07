@@ -3,8 +3,6 @@ import { lazy } from "react";
 import { PrivateRoute, PublicRoute } from "./ProtectedRoute";
 import { useAuth } from "@/hooks/useAuth";
 import { Suspense } from "react";
-
-import Payments from "@/pages/payments/Payments";
 import Users from "@/pages/users/Users";
 import AdminOrders from "@/pages/dashboard/Adminorders/AdminOrders";
 import ErrorBoundary from "@/components/ErrorBoundary";
@@ -32,8 +30,9 @@ const PaymentOptions = lazy(() =>
 );
 const Orders = lazy(() => import("../pages/orders/Orders"));
 const PersonalInfo = lazy(() => import("../pages/profile/PersonalInfo"));
-const Payment = lazy(() => import("../pages/payments/Payments"));
+const Payments = lazy(() => import("../pages/payments/Payments"));
 const Dashboard = lazy(() => import("../pages/dashboard/Dashboard"));
+
 // const Users = lazy(() => import ("../pages/dashboard/users/Users"));
 // const AdminOrders = lazy(() => import ("../pages/dashboard/Adminorders/AdminOrders"));
 const Revenue = lazy(() => import("../pages/dashboard/revenue/Revenue"));
