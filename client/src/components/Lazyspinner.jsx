@@ -1,4 +1,3 @@
-import { LoaderCircle } from "lucide-react";
 
 export default function LazySpinner() {
   return (
