@@ -33,7 +33,7 @@ const PaymentOptions = lazy(() =>
 const Orders = lazy(() => import("../pages/orders/Orders"));
 const PersonalInfo = lazy(() => import("../pages/profile/PersonalInfo"));
 const Payment = lazy(() => import("../pages/payments/Payments"));
-const Dashboard = lazy(() => import("../pages/dashboard/DashBoard"));
+const Dashboard = lazy(() => import("../pages/dashboard/Dashboard"));
 // const Users = lazy(() => import ("../pages/dashboard/users/Users"));
 // const AdminOrders = lazy(() => import ("../pages/dashboard/Adminorders/AdminOrders"));
 const Revenue = lazy(() => import("../pages/dashboard/revenue/Revenue"));

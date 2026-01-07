@@ -9,7 +9,7 @@ import usePaginate from "@/hooks/usePaginate";
 import Paginate from "@/components/Paginate";
 import { formatCurrency } from "@/utils/constant";
 
-export default function AdminOrders() {
+export default function Revenue() {
   const { accessToken } = useAuth();
   const [searchParams] = useSearchParams();
   const { isPending, isError, error, data } = useQuery({
