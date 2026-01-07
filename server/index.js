@@ -31,7 +31,7 @@ const httpServer = createServer(app);
 
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: ["http://localhost:3000", "http://laundrywash-client-vercel.app"],
     credentials: true,
     methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"], //
     optionsSuccessStatus: 200, //default status code
