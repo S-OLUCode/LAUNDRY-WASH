@@ -1,6 +1,6 @@
 import { Outlet, NavLink } from "react-router";
 import { profileLinks } from "@/utils/constant";
-import Logout from "@/components/logout";
+import Logout from "@/components/Logout";
 import UploadAvatar from "@/pages/profile/UploadAvatar";
 import Footer from "@/components/Footer";
 
