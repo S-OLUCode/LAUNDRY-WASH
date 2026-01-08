@@ -76,6 +76,6 @@ router.patch(
 );
 
 router.post("/refresh-token", refreshToken);
-router.patch("/upload-avatar", rateLimiter(5), authenticate, uploadAvatar);
+router.patch("/upload-avatar", rateLimiter(5),   authenticate, uploadAvatar);
 
 export default router;

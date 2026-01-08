@@ -83,6 +83,8 @@ export const getAuthUser = async (accessToken) => {
   });
 };
 
+
+
 export const uploadAvatar = async ({ formData, accessToken }) => {
   return await axiosClient.patch("/user/upload-avatar", formData, {
     headers: {

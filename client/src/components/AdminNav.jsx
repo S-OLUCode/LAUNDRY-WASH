@@ -1,7 +1,7 @@
 import { useLocation, useNavigate, useSearchParams } from "react-router";
 import UserAvatar from "./UserAvatar";
 import { useDebouncedCallback } from "use-debounce";
-
+import AdminDrawer from "./AdminDrawer";
 
 export default function AdminNav() {
   const [searchParams, setsearchParams] = useSearchParams();
@@ -9,16 +9,15 @@ export default function AdminNav() {
   const navigate = useNavigate();
   const query = searchParams.get("query") || "";
 
-  
   const debounceFn = useDebouncedCallback((e) => {
-    e.preventDefault()
+    e.preventDefault();
     const value = e.target.value;
     const params = new URLSearchParams(searchParams);
-    if(value.length >= 3) {
+    if (value.length >= 3) {
       params.set("query", value);
-       navigate(location.pathname + "?" + params.toString());
+      navigate(location.pathname + "?" + params.toString());
     } else {
-      navigate(location.pathname)
+      navigate(location.pathname);
       params.delete("query");
       setsearchParams(params);
     }
@@ -44,9 +43,19 @@ export default function AdminNav() {
               <path d="m21 21-4.3-4.3"></path>
             </g>
           </svg>
-          <input type="search" required placeholder="Search" className="input-lg" defaultValue={query} onChange={debounceFn} />
+          <input
+            type="search"
+            required
+            placeholder="Search"
+            className="input-lg"
+            defaultValue={query}
+            onChange={debounceFn}
+          />
         </label>
-        <UserAvatar />
+        <div className="flex gap-2 pl-2 items-center">
+          <UserAvatar />
+          <AdminDrawer />
+        </div>
       </div>
     </div>
   );

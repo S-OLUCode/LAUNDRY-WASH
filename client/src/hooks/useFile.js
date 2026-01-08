@@ -9,7 +9,7 @@ export function useFile() {
         const file = e.target.files?.[0];
         if(file && file.size > 5 * 1024 * 1024) {
             toast.error("File size should not exceed 5MB");
-            return
+            return;
         }
         const validFile = file?.type.startsWith("image/");
         if(!validFile) {
@@ -23,7 +23,7 @@ export function useFile() {
             reader.oneerror = () => {
                 toast.error("Failed to read file");
             };
-            reader.onload = () => {
+            reader.onloadend = () => {
                 setSelectedFile(reader.result);
             };
         }

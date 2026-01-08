@@ -8,7 +8,7 @@ import mailService from "./mail.controller.js";
 import {
   uploadToCloudinary,
   deleteFromCloudinary,
-} from "../utils/cloudinary.js";
+} from "../utils/cloundinary.js";
 
 export const registerUser = async (req, res, next) => {
   //req.body handles form collection passed from client side
@@ -40,7 +40,7 @@ export const registerUser = async (req, res, next) => {
       verifyToken,
       verifyTokenExpires,
       phone,
-    });
+    })
     //generate access and refresh token
     const { accessToken, refreshToken, cookieOptions } = sendToken(newUser);
     //process.nextTick()- this allows not block synchronous operations- the api response sant wait for the email sent
@@ -50,7 +50,7 @@ export const registerUser = async (req, res, next) => {
       mailService.sendRegistrationEmail(newUser, verificationLink);
     });
     // send cookie in response
-    res.cookie("refreshToken", refreshToken, cookieOptions);
+    // res.cookie("refreshToken", refreshToken, cookieOptions);
     //send response to client
     return responseHandler.successResponse(
       res,
@@ -80,6 +80,7 @@ export const loginUser = async (req, res, next) => {
     }
     //generate access and refresh token
     const { accessToken, refreshToken, cookieOptions } = sendToken(user);
+    await user.save();
     // send cookie in response
     res.cookie("refreshToken", refreshToken, cookieOptions);
     //return json response
@@ -299,28 +300,25 @@ export const updateUserDetails = async (req, res, next) => {
 };
 
 export const refreshToken = async (req, res, next) => {
+  const userId = req.user.id;
   try {
-    const refreshedToken = req.cookies.refreshToken;
-    if (!refreshedToken) {
-      return next(responseHandler.errorResponse("Refresh token is required"));
+    const user = await User.findById(userId).select("+refreshToken");
+    if (!user) {
+      return next(responseHandler.errorResponse("User not found"));
     }
+    const refreshedToken = user.refreshToken;
     const verifyToken = jwt.verify(
       refreshedToken,
       process.env.JWT_REFRESH_TOKEN_SECRET_KEY
     );
     if (!verifyToken) {
-      throw new Error("invalid refresh token");
+      throw new Error("Invalid refresh token");
     }
-    //find user in db
-    const user = await User.findById(verifyToken.id).lean();
-    if (!user) {
-      return next(responseHandler.notFoundResponse("User not found"));
-    }
-    const getNewToken = signToken(user._id, user.role);
+    const getNewToken = generateNewAccessToken(user?._id, user?.role);
     if (!getNewToken) {
       throw new Error("Failed to create new token");
     }
-    //destructure accesstoken and cookieOptions from new token
+    //destructure accesstoken, refreshToken and cookieOptions from new token
     const { accessToken } = getNewToken;
     return responseHandler.successResponse(
       res,
@@ -338,32 +336,32 @@ export const uploadAvatar = async (req, res, next) => {
   const userId = req.user.id;
   try {
     if (!avatar) {
-      return next(responseHandler.errorResponse("No file received", 400));
+      return responseHandler.errorResponse("No file received", 400);
     }
-    // check if user has an avatar already
+    //check if the user has an avatar already
     const user = await User.findById(userId);
     const currentAvatar = user.avatar;
     const currentAvatarId = user.avatarId;
     if (currentAvatar) {
-      //delete existing avatar from cloudinary
-      await deleteFromCloudinary(currentAvatar);
+      //if avatar exists, then we delete so we can replace it
+      await deleteFromCloudinary(currentAvatarId);
     }
-    //upload new avatar to cloudinary/replace with new image
+    //replace with new image
     const { url, public_id } = await uploadToCloudinary(avatar, {
       folder: "laundrywash/avatars",
       width: 200,
       height: 200,
       crop: "fit",
     });
-    //update user profile with new avatar url
     user.avatar = url || user.avatar;
     user.avatarId = public_id || user.avatarId;
     await user.save();
     return responseHandler.successResponse(
       res,
       user,
-      "avatar uploaded successfully",
-      200
+      "Avatar upload successful"
     );
-  } catch (error) {}
+  } catch (error) {
+    next(error);
+  }
 };

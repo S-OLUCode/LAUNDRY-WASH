@@ -4,6 +4,7 @@ import { createPayment } from "@/api/payment";
 import { useAuth } from "@/hooks/useAuth";
 import { useEffect, useRef, useCallback } from "react";
 import { toast } from "react-toastify";
+import { safeRemoveItem } from "@/utils/storage";
 
 export default function Paystack({
   bookingId,
@@ -22,7 +23,7 @@ export default function Paystack({
     onSuccess: (res) => {
       toast.success(res.data.message || "Payment successful");
       queryClient.invalidateQueries({ queryKey: ["userBookings"] });
-      localStorage.removeItem("laundryBookingForm");
+      safeRemoveItem("laundryBookingForm");
       setBookingForm(null);
       setIsModalOpen(true);
       if (onClose) onClose();
@@ -55,44 +56,43 @@ export default function Paystack({
     if (onClose) onClose();
   }, [onClose]);
 
+  useEffect(() => {
+    // prevent opening multiple times
+    if (hasOpenedRef.current) return;
+    // Initialize paystack instance once
+    if (!paystackInstanceRef.current) {
+      paystackInstanceRef.current = new PaystackPop();
+    }
+    // Configure and open Paystack checkout
+    const config = {
+      email: user?.email,
+      amount: total * 100, //Amount is in the country's lowest currency. E.g kobo, so 2000 kobo = N200
+      key: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY,
+      onSuccess: (transaction) =>
+        handlePaystackSuccessAction(transaction?.reference),
+      onCancel: handlePaystackCloseAction,
+      onError: () => {
+        toast.error("Something went wrong");
+        if (onClose) onClose();
+      },
+    };
 
-useEffect(() => {
-  // prevent opening multiple times
-  if (hasOpenedRef.current) return;
-  // Initialize paystack instance once
-  if (!paystackInstanceRef.current) {
-    paystackInstanceRef.current = new PaystackPop();
-  }
-  // Configure and open Paystack checkout
-  const config = {
-    email: user?.email,
-    amount: total * 100,    //Amount is in the country's lowest currency. E.g kobo, so 2000 kobo = N200
-    key: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY,
-    onSuccess: (transaction) =>
-      handlePaystackSuccessAction(transaction?.reference),
-    onCancel: handlePaystackCloseAction,
-    onError: () => {
-      toast.error("Something went wrong");
-      if (onClose) onClose();
-    },
-  };
+    // only open checkout if we have valid data
+    if (user?.email && total > 0) {
+      hasOpenedRef.current = true;
+      paystackInstanceRef.current.checkout(config);
+    }
 
-  // only open checkout if we have valid data
-  if (user?.email && total > 0) {
-    hasOpenedRef.current = true;
-    paystackInstanceRef.current.checkout(config);
-  }
+    // Cleanup: reset flag when component unmounts
 
-  // Cleanup: reset flag when component unmounts
-
-  return () => {
-    hasOpenedRef.current = false;
-  };
-}, [
-  user?.email,
-  total,
-  handlePaystackSuccessAction,
-  handlePaystackCloseAction,
-  onClose,
-]);
+    return () => {
+      hasOpenedRef.current = false;
+    };
+  }, [
+    user?.email,
+    total,
+    handlePaystackSuccessAction,
+    handlePaystackCloseAction,
+    onClose,
+  ]);
 }
