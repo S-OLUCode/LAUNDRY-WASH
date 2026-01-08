@@ -2,7 +2,7 @@ import { adminActivitiesColumn, paymentStatusColors } from "@/utils/constant";
 import TableBody from "@/components/TableBody";
 import { useCallback } from "react";
 
-export default function DashboardTable({ recentActivities }) {
+export default function DashBoardTable({ recentActivities }) {
   const renderCell = useCallback((activities, columnKey) => {
     const cellValue = activities[columnKey];
     switch (columnKey) {

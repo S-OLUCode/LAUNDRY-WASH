@@ -4,7 +4,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import { formatCurrency } from "@/utils/constant";
 import { useSearchParams } from "react-router";
-import DashboardTable from "./DashboardTable";
+import DashBoardTable from "./DashBoardTable";
 import Paginate from "@/components/Paginate";
 import usePaginate from "@/hooks/usePaginate";
 import Filter from "./Filter";
@@ -89,7 +89,7 @@ export default function DashBoard() {
             <p>Recent Activites</p>
             <Filter />
           </div>
-          <DashboardTable recentActivities={recentActivities} />
+          <DashBoardTable recentActivities={recentActivities} />
           <Paginate
             totalPages={totalPages}
             hasMore={hasMore}
