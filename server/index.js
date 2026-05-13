@@ -122,7 +122,7 @@ process.on("uncaughtException", (err) => {
 });
 
 //server config
-const PORT = process.env.PORT || 3500;
+const PORT = process.env.PORT || 3600;
 const startServer = async () => {
   try {
     await connectToDb();
