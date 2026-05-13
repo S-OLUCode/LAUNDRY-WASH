@@ -57,7 +57,7 @@ app.get("/", (req, res) => {
   res.status(200).json({
     status: "Success",
     message: "Server is running!",
-    environment: process.env.NODE_ENVx,
+    environment: process.env.NODE_ENV,
     time: req.requestTIME,
   });
 });
