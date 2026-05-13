@@ -72,7 +72,7 @@ export default function Login() {
             type={revealPassword ? "text" : "password"}
             placeholder="Password"
             {...register("password")}
-            className="px-4 py-2 rounded-lg bg-white text-black w-full"
+            className="px-4 py-2 roundebhhd-lg bg-white text-black w-full"
           />
           <button
             type="button"

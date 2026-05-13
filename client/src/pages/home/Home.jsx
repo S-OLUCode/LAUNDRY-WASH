@@ -9,9 +9,9 @@ export default function Home() {
     <>
       <div className="container mx-auto md:px-8 md:py-6">
         <div className="space-y-6">
-          <div className="text-wash-white text-center space-y-4 mt-10">
-            <h1 className="text-4xl">Quick. Clean. Delivered.</h1>
-            <p className="text-lg">
+          <div className="text-wash-white container text-center mt-10">
+            <h1 className="md:text-4xl text-3xl md:text-center text-start pl-4">Quick. Clean. Delivered.</h1>
+            <p className="text-lg md:text-md text-left md:text-center p-4">
               Laundry Wash helps you save time with fast, reliable pickup and
               delivery service.
               <br /> Because you deserve clean clothes without the wait.
@@ -26,14 +26,16 @@ export default function Home() {
                 Book Laundry
               </Link>
             </div>
+            <div className="pt-2">
             {!user && (
               <Link
                 to="/login"
-                className="text-wash-white border border-wash-white px-4 py-2 rounded-full"
+                className="text-wash-purple border border-wash-purple px-4 py-2 rounded-full"
               >
                 Log In
               </Link>
             )}
+            </div>
           </div>
           <div className="mt-10">
             <img src="/Frame 30.svg" alt="" className="w-full" />
