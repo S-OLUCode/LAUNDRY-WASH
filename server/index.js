@@ -37,11 +37,16 @@ app.use(
     optionsSuccessStatus: 200, //default status code
   })
 );
+
+// app.options('*', cors()); // enable pre-flight for all routes
+
 app.use(cookieParser()); //initialize coookie in app
 app.use(express.json({ limit: "25mb" })); //parses our response body in a max size no greater than 25mb
 app.use(express.urlencoded({ extended: true, limit: "25mb" })); //parses url encoded data with query string library
 app.use(rateLimiter(100)); //apply rate limiting to all requests, max 100 requests per 15 minutes window
 app.disable("x-powered-by"); //disable x-powered-by header for security reasons
+
+
 
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev")); //morgan is used to log http request to the terminal in dev mode
